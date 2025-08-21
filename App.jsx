@@ -1,13 +1,13 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import NavBar from './components/NavBar.jsx'
-import Footer from './components/Footer.jsx'
-import Home from './pages/Home.jsx'
-import Order from './pages/Order.jsx'
-import Success from './pages/Success.jsx'
-import FAQ from './pages/FAQ.jsx'
-import About from './pages/About.jsx'
-import NotFound from './pages/NotFound.jsx'
+import NavBar from './NavBar.jsx'
+import Footer from './Footer.jsx'
+import Home from './Home.jsx'
+import Order from './Order.jsx'
+import Success from './Success.jsx'
+import FAQ from './FAQ.jsx'
+import About from './About.jsx'
+import NotFound from './NotFound.jsx'
 
 export default function App(){
   return (
