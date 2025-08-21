@@ -1,9 +1,5 @@
-:root{
-  --bg:#0f1115; --panel:#151823; --ink:#e7ebf1; --dim:#a5b0c2; --brand:#8fd3ff; --ok:#9ae6b4;
-  --radius:14px;
-}
-*{box-sizing:border-box}
-html,body,#root{height:100%}
+:root{--bg:#0f1115;--panel:#151823;--ink:#e7ebf1;--dim:#a5b0c2;--brand:#8fd3ff;--ok:#9ae6b4;--radius:14px}
+*{box-sizing:border-box}html,body,#root{height:100%}
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,'Rubik','Noto Sans Hebrew',sans-serif;background:var(--bg);color:var(--ink);direction:rtl}
 .page{min-height:100dvh;display:grid;grid-template-rows:auto 1fr auto}
 a{color:inherit;text-decoration:none}
