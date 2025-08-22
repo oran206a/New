@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 
-// יעד וואטסאפ קבוע: 052-3907792 -> פורמט בינלאומי
-const WHATSAPP_PHONE = '972523907792'
+// מספר יעד קבוע: 0523907792 -> בינלאומי
+const WHATSAPP_INTL = '972523907792'
 
 const base = { small:129, medium:169, large:219 }
 const shapeExtra = { rectangle:0, circle:10, heart:20 }
@@ -29,27 +29,27 @@ export default function Order(){
     setPreview(URL.createObjectURL(f))
   }
 
-  async function sendWA(){
+  function openWhatsAppToNumber(text){
+    // ניסיון לפתוח ישר לאפליקציה עם המספר הקבוע
+    const native = `whatsapp://send?phone=${WHATSAPP_INTL}&text=${encodeURIComponent(text)}`
+    const web = `https://wa.me/${WHATSAPP_INTL}?text=${encodeURIComponent(text)}`
+    // ניסיון ראשון: deep link
+    window.location.href = native
+    // גיבוי אחרי רגע: קישור וובי (יפתח אפליקציה או Web WhatsApp)
+    setTimeout(()=>{ window.open(web, '_blank') }, 700)
+  }
+
+  function sendWA(){
     const lines = [
       'שלום! הזמנת מנורת ליטופן 🕯️',
       `מידה: ${sizeLabel[size]||size}`,
       `צורה: ${shapeLabel[shape]||shape}`,
       `כמות: ${pricing.qty}`,
       `מחיר ליחידה: ₪${pricing.item.toLocaleString('he-IL')}`,
-      `סה״כ להזמנה: ₪${pricing.total.toLocaleString('he-IL')}`
-    ].join('\\n')
-
-    // נסיון שיתוף עם תמונה במכשירים תומכים (iOS/Android) — לא מבטיח בחירת איש קשר אוטומטית.
-    try{
-      if(file && navigator.canShare && navigator.canShare({ files:[file], text: lines })){
-        await navigator.share({ title:'הזמנת מנורת ליטופן', text: lines, files:[file] })
-        return
-      }
-    }catch(e){ /* fallback below */ }
-
-    // גיבוי: פתיחת צ'אט למספר הקבוע עם הטקסט. תמונה תצורף ידנית בוואטסאפ.
-    const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(lines + (file ? '\\n(אנא צרף/י את התמונה בהודעה)' : ''))}`
-    window.open(url, '_blank')
+      `סה״כ להזמנה: ₪${pricing.total.toLocaleString('he-IL')}`,
+      file ? '(אצרף את התמונה בהודעה הבאה)' : ''
+    ].filter(Boolean).join('\\n')
+    openWhatsAppToNumber(lines)
   }
 
   return (
@@ -80,11 +80,13 @@ export default function Order(){
 
         <div className="total">
           <strong>סה״כ: {pricing.total.toLocaleString('he-IL')} ₪</strong>
-          <button className="btn" type="button" onClick={sendWA}>שליחה ל‑WhatsApp 052‑3907792</button>
+          <button className="btn" type="button" onClick={sendWA}>
+            שליחה ל‑WhatsApp 052‑3907792
+          </button>
         </div>
 
         <p className="muted" style={{marginTop:8}}>
-          הערה: שיתוף עם תמונה נתמך רק במכשירים ניידים תומכים. בקישור הישיר למספר מצורף טקסט והצילום יתווסף ידנית.
+          הערה: WhatsApp לא מאפשר לצרף קובץ אוטומטית דרך קישור. לאחר פתיחת הצ׳אט למספר 052‑3907792, צרפו את התמונה בלחיצה על אטצ׳.
         </p>
       </div>
     </section>
