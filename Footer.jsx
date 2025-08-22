@@ -1,8 +1,2 @@
 import React from 'react'
-export default function Footer(){
-  return (
-    <footer>
-      <strong>TLATOR</strong> © {new Date().getFullYear()} · מחירים בש"ח · תמיכה בעברית · ייצור מוקפד
-    </footer>
-  )
-}
+export default function Footer(){ return <footer><div className="container">© {new Date().getFullYear()} TLATOR • מנורת ליטופן בישראל</div></footer> }
